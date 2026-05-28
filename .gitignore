@@ -37,3 +37,6 @@ env/
 .idea/
 *.swp
 .DS_Store
+
+# ADK runtime
+.adk/

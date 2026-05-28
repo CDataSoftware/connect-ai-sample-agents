@@ -1,0 +1,78 @@
+{
+  "templates": {
+    "adk": {
+      "label": "Google ADK",
+      "description": "Daily standup agent built with Google ADK. Pulls Jira, Slack, and Calendar via the CData Query MCP.",
+      "variants": {
+        "typescript": {
+          "label": "TypeScript (Gemini)",
+          "source": "adk/typescript",
+          "next": [
+            "npm install",
+            "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and GEMINI_API_KEY",
+            "npm start              # opens the ADK web UI"
+          ]
+        },
+        "python": {
+          "label": "Python (Anthropic or OpenAI via LiteLLM)",
+          "source": "adk/python",
+          "next": [
+            "/opt/homebrew/bin/python3.13 -m venv .venv && source .venv/bin/activate   # Python 3.10+ required",
+            "pip install --upgrade pip && pip install -r requirements.txt",
+            "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and ANTHROPIC_API_KEY or OPENAI_API_KEY",
+            "adk web                # opens the ADK web UI (agent: daily_standup)"
+          ]
+        }
+      }
+    },
+    "aisdk": {
+      "label": "Vercel AI SDK (TypeScript)",
+      "description": "Daily standup agent built with the Vercel AI SDK. Pulls Jira, Slack, and Calendar via the CData Query MCP.",
+      "source": "aisdk",
+      "next": [
+        "npm install",
+        "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and one of ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY",
+        "npm start"
+      ]
+    },
+    "langchain": {
+      "label": "LangChain",
+      "description": "Daily standup agent built with LangChain. Pulls Jira, Slack, and Calendar via the CData Query MCP.",
+      "variants": {
+        "typescript": {
+          "label": "TypeScript",
+          "source": "langchain/typescript",
+          "next": [
+            "npm install",
+            "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and one of ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY",
+            "npm start"
+          ]
+        },
+        "python": {
+          "label": "Python",
+          "source": "langchain/python",
+          "next": [
+            "python3 -m venv .venv && source .venv/bin/activate   # Python 3.10+ required",
+            "pip install --upgrade pip && pip install -r requirements.txt",
+            "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and one of ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY",
+            "python agent.py"
+          ]
+        }
+      }
+    }
+  },
+  "copyIgnore": [
+    "node_modules",
+    "dist",
+    "build",
+    ".env",
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".adk",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml",
+    ".DS_Store"
+  ]
+}

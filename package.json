@@ -1,0 +1,46 @@
+{
+  "name": "@cdatasoftware/create-agent",
+  "version": "0.1.0",
+  "description": "Scaffold a CData agent template (ADK, AI SDK, LangChain) into the current directory.",
+  "author": "CData Software",
+  "license": "MIT",
+  "type": "module",
+  "bin": "./bin/cli.js",
+  "files": [
+    "bin",
+    "templates.json",
+    "adk/typescript",
+    "adk/python",
+    "aisdk",
+    "langchain/typescript",
+    "langchain/python",
+    "!**/node_modules",
+    "!**/dist",
+    "!**/build",
+    "!**/package-lock.json",
+    "!**/yarn.lock",
+    "!**/pnpm-lock.yaml",
+    "!**/.env",
+    "!**/.venv",
+    "!**/venv",
+    "!**/__pycache__",
+    "!**/.adk"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "scaffold",
+    "agent",
+    "adk",
+    "ai-sdk",
+    "langchain",
+    "cdata"
+  ],
+  "dependencies": {
+    "@clack/prompts": "^0.11.0"
+  }
+}
