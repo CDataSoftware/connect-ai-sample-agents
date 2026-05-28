@@ -1,0 +1,21 @@
+{
+  "name": "adk-ts-agent",
+  "version": "0.1.0",
+  "description": "Daily standup agent — Google ADK (TypeScript) — pulls Jira, Slack, and Calendar via CData Query MCP.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "npx adk web",
+    "start:cli": "npx adk run agent.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@google/adk": "1.1.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@google/adk-devtools": "1.1.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

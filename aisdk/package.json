@@ -1,0 +1,23 @@
+{
+  "name": "aisdk-agent",
+  "version": "0.1.0",
+  "description": "Daily standup agent — Vercel AI SDK (TypeScript) — pulls Jira, Slack, and Calendar via CData Query MCP.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx --env-file=.env agent.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.0",
+    "@ai-sdk/google": "^3.0.0",
+    "@ai-sdk/mcp": "^1.0.42",
+    "@ai-sdk/openai": "^3.0.0",
+    "ai": "^6.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
