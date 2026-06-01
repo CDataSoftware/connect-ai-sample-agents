@@ -1,0 +1,102 @@
+# Build + publish pipeline for @cdatasoftware/create-agent.
+#
+# - PRs to main run Validate (install + syntax check).
+# - Pushes of a `v*` tag run Validate, then Publish to npmjs.org.
+#   Cut a GitHub Release with tag `vX.Y.Z` matching `package.json` version
+#   to publish.
+#
+# Pipeline secret variable required:
+#   NPM_TOKEN  Granular automation token, publish-only, scoped to
+#              the @cdatasoftware org on npmjs.org. Mark as secret.
+
+trigger:
+  branches:
+    exclude:
+      - '*'
+  tags:
+    include:
+      - 'v*'
+
+pr:
+  branches:
+    include:
+      - main
+  autoCancel: true
+
+pool: prod-build-ubuntu-agents-vmss
+
+variables:
+  NODE_VERSION: '20.x'
+
+stages:
+  - stage: Validate
+    displayName: Validate
+    jobs:
+      - job: Validate
+        timeoutInMinutes: 5
+        steps:
+          - task: UseNode@1
+            inputs:
+              version: $(NODE_VERSION)
+            displayName: Install Node.js
+
+          - task: Npm@1
+            inputs:
+              command: 'ci'
+            retryCountOnTaskFailure: 3
+            displayName: npm ci
+
+          - script: node --check bin/cli.js
+            displayName: Syntax check bin/cli.js
+
+  - stage: Publish
+    displayName: Publish to npmjs.org
+    dependsOn: Validate
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+    jobs:
+      - deployment: Publish
+        timeoutInMinutes: 10
+        environment: npmjs-cdatasoftware
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                  clean: true
+
+                - task: UseNode@1
+                  inputs:
+                    version: $(NODE_VERSION)
+                  displayName: Install Node.js
+
+                - script: |
+                    set -euo pipefail
+                    TAG="${BUILD_SOURCEBRANCH#refs/tags/v}"
+                    PKG_VERSION=$(node -p "require('./package.json').version")
+                    echo "Tag version:        $TAG"
+                    echo "package.json version: $PKG_VERSION"
+                    if [ "$TAG" != "$PKG_VERSION" ]; then
+                      echo "##vso[task.logissue type=error]Tag v$TAG does not match package.json version $PKG_VERSION"
+                      exit 1
+                    fi
+                  displayName: Verify tag matches package.json version
+
+                - task: Npm@1
+                  inputs:
+                    command: 'ci'
+                  retryCountOnTaskFailure: 3
+                  displayName: npm ci
+
+                - script: |
+                    set -euo pipefail
+                    cat > .npmrc <<EOF
+                    //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+                    registry=https://registry.npmjs.org/
+                    access=public
+                    EOF
+                  env:
+                    NPM_TOKEN: $(NPM_TOKEN)
+                  displayName: Write .npmrc with npm token
+
+                - script: npm publish --access public
+                  displayName: npm publish
