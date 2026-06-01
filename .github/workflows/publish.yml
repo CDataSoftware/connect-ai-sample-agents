@@ -1,0 +1,58 @@
+name: Publish to npm
+
+# Publishes @cdatasoftware/create-agent to npmjs.org when a Release is
+# published on GitHub. Auth is via npm Trusted Publishing — the
+# workflow's GitHub OIDC identity is exchanged for a one-time publish
+# credential at runtime, so there is no token to store or rotate.
+#
+# Setup required once on npmjs.org (org owner):
+#   Package settings → Trusted Publishers → Add GitHub Actions
+#     Repository:        CDataSoftware/connect-ai-sample-agents
+#     Workflow filename: publish.yml
+#     Environment:       npm-publish
+#
+# Setup required once on GitHub:
+#   Settings → Environments → New environment: `npm-publish`
+#     Deployment branch rule: restrict to tag pattern `v*`
+#     Optional: required reviewers for approval gating
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Verify tag matches package.json version
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG=$(node -p "require('./package.json').version")
+          echo "Release tag:          ${GITHUB_REF_NAME}"
+          echo "Tag version:          ${TAG}"
+          echo "package.json version: ${PKG}"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::Release tag ${GITHUB_REF_NAME} does not match package.json version ${PKG}"
+            exit 1
+          fi
+
+      - run: npm ci
+
+      - name: Syntax check bin/cli.js
+        run: node --check bin/cli.js
+
+      - name: Publish with provenance
+        run: npm publish --provenance --access public
