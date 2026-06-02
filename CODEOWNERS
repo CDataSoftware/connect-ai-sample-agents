@@ -1,3 +1,8 @@
 # Default owners for everything in the repo.
 
 * @CDataSoftware/connect-ai-engineering
+
+# Workflow and CI changes get an extra set of eyes from platform — these
+# files control what runs with the npm publish OIDC identity, so they're
+# higher-blast-radius than ordinary code changes.
+/.github/ @CDataSoftware/connect-ai-engineering @CDataSoftware/platform
