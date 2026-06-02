@@ -4,6 +4,14 @@
   "description": "Scaffold a CData agent template (ADK, AI SDK, LangChain) into the current directory.",
   "author": "CData Software",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CDataSoftware/connect-ai-sample-agents.git"
+  },
+  "homepage": "https://github.com/CDataSoftware/connect-ai-sample-agents#readme",
+  "bugs": {
+    "url": "https://github.com/CDataSoftware/connect-ai-sample-agents/issues"
+  },
   "type": "module",
   "bin": "./bin/cli.js",
   "files": [
