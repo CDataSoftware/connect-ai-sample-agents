@@ -69,7 +69,7 @@ To run any scaffolded template you'll need:
 2. One LLM provider API key. Each template lists which providers it supports
    in the table above.
 3. Runtime: **Node.js 18+** for TypeScript templates, **Python 3.10+** for
-   Python templates.
+   Python templates (**3.11+** for `adk/python`).
 
 ## License
 
