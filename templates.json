@@ -17,7 +17,7 @@
           "label": "Python (Anthropic or OpenAI via LiteLLM)",
           "source": "adk/python",
           "next": [
-            "/opt/homebrew/bin/python3.13 -m venv .venv && source .venv/bin/activate   # Python 3.10+ required",
+            "/opt/homebrew/bin/python3.13 -m venv .venv && source .venv/bin/activate   # Python 3.11+ required",
             "pip install --upgrade pip && pip install -r requirements.txt",
             "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and ANTHROPIC_API_KEY or OPENAI_API_KEY",
             "adk web                # opens the ADK web UI (agent: daily_standup)"

@@ -1,6 +1,6 @@
 {
   "name": "@cdatasoftware/create-agent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scaffold a CData agent template (ADK, AI SDK, LangChain) into the current directory.",
   "author": "CData Software",
   "license": "MIT",

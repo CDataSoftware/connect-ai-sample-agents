@@ -6,7 +6,7 @@ Uses LiteLLM, so it runs on either an **Anthropic** or **OpenAI** API key.
 
 ## Prerequisites
 
-- Python **3.10+** (3.12 or 3.13 recommended).
+- Python **3.11+** (3.12 or 3.13 recommended).
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - Either an `ANTHROPIC_API_KEY` or an `OPENAI_API_KEY`.
 
