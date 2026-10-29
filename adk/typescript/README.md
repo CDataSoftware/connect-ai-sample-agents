@@ -23,6 +23,11 @@ cp .env.example .env
 npm start
 ```
 
+> On Windows without Visual Studio Build Tools, `npm install` may print `node-gyp` errors
+> from `ssh2` and `cpu-features`. They come from `dockerode`, an optional dependency of
+> `@google/adk` that this template doesn't use, and the install still succeeds — the
+> output is harmless.
+
 `npm start` launches the ADK web UI (default `http://localhost:8000`). In the chat, ask:
 
 > Generate my daily standup for today.
