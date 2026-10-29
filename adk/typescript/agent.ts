@@ -71,12 +71,12 @@ export const rootAgent = new LlmAgent({
     new MCPToolset({
       type: "StreamableHTTPConnectionParams",
       url: cdataMcpUrl,
-      header: cdataMcpHeaders,
+      transportOptions: { requestInit: { headers: cdataMcpHeaders } },
     }),
     new MCPToolset({
       type: "StreamableHTTPConnectionParams",
       url: `${cdataMcpUrl}/mgmt`,
-      header: cdataMcpHeaders,
+      transportOptions: { requestInit: { headers: cdataMcpHeaders } },
     }),
   ],
 });
