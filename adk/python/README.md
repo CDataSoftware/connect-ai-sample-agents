@@ -6,7 +6,8 @@ Uses LiteLLM, so it runs on either an **Anthropic** or **OpenAI** API key.
 
 ## Prerequisites
 
-- Python **3.11+** (3.12 or 3.13 recommended).
+- Python **3.11 to 3.14** (3.12 or 3.13 recommended). Python 3.15 isn't supported yet:
+  `litellm` requires Python below 3.15.
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - Either an `ANTHROPIC_API_KEY` or an `OPENAI_API_KEY`.
 
@@ -48,6 +49,22 @@ For a terminal-only run instead of the web UI:
 ```bash
 adk run daily_standup
 ```
+
+## Updating dependencies
+
+`requirements.txt` is a lockfile: it pins every package the agent installs, direct and
+transitive, with hashes, so each install gets the versions this template was tested with.
+The direct dependencies live in `requirements.in`. Don't edit `requirements.txt` by hand —
+pip rejects entries without hashes. To add, remove, or upgrade a dependency, edit
+`requirements.in` and regenerate the lock with [uv](https://docs.astral.sh/uv/):
+
+```bash
+uv pip compile requirements.in --universal --python-version 3.11 --generate-hashes   --exclude-newer 2026-10-22T00:00:00Z -o requirements.txt   # use a date a week ago
+```
+
+`--universal` keeps one lock valid on Windows, macOS, and Linux, `--python-version 3.11`
+resolves for the oldest supported Python, and `--exclude-newer` skips releases less than a
+week old. Then run `pip install -r requirements.txt` again.
 
 ## Customizing
 
