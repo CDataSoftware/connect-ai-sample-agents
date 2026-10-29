@@ -10,7 +10,7 @@ Auto-generates a daily standup summary from your Jira, Slack, and Google Calenda
 
 ## Prerequisites
 
-- Node.js **18+**.
+- Node.js **22+**.
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - One LLM provider key: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, or `GEMINI_API_KEY`.
 

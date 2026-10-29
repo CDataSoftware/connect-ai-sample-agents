@@ -8,7 +8,9 @@ Auto-generates a daily standup summary from your Jira, Slack, and Google Calenda
 
 ## Prerequisites
 
-- Node.js **18+**.
+- Node.js **22.17 to 26.x**. ADK 2.x's `@mikro-orm/core` dependency sets the floor; the
+  template's `better-sqlite3` 12.x override supports Node 26 at most, and `.npmrc` sets
+  `engine-strict`, so `npm install` fails on Node 27+ until that override is revisited.
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - A `GEMINI_API_KEY` (Google ADK TypeScript runs on Gemini models).
 
@@ -22,6 +24,11 @@ cp .env.example .env
 # Fill in CDATA_ACCT_EMAIL, CDATA_PAT, and GEMINI_API_KEY
 npm start
 ```
+
+> On Windows without Visual Studio Build Tools, `npm install` may print `node-gyp` errors
+> from `ssh2` and `cpu-features`. They come from `dockerode`, an optional dependency of
+> `@google/adk` that this template doesn't use, and the install still succeeds — the
+> output is harmless.
 
 `npm start` launches the ADK web UI (default `http://localhost:8000`). In the chat, ask:
 
