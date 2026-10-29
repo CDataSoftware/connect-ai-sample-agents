@@ -8,7 +8,7 @@ Auto-generates a daily standup summary from your Jira, Slack, and Google Calenda
 
 ## Prerequisites
 
-- Node.js **18+**.
+- Node.js **22.17+** (required by ADK 2.x's `@mikro-orm/core` dependency).
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - A `GEMINI_API_KEY` (Google ADK TypeScript runs on Gemini models).
 
