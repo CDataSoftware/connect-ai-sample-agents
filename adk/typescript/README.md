@@ -8,7 +8,9 @@ Auto-generates a daily standup summary from your Jira, Slack, and Google Calenda
 
 ## Prerequisites
 
-- Node.js **22.17+** (required by ADK 2.x's `@mikro-orm/core` dependency).
+- Node.js **22.17 to 26.x**. ADK 2.x's `@mikro-orm/core` dependency sets the floor; the
+  template's `better-sqlite3` 12.x override supports Node 26 at most, and `.npmrc` sets
+  `engine-strict`, so `npm install` fails on Node 27+ until that override is revisited.
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - A `GEMINI_API_KEY` (Google ADK TypeScript runs on Gemini models).
 

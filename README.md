@@ -68,7 +68,7 @@ To run any scaffolded template you'll need:
    Personal Access Token (PAT).
 2. One LLM provider API key. Each template lists which providers it supports
    in the table above.
-3. Runtime: **Node.js 22.17+** for `adk/typescript`, **22+** for
+3. Runtime: **Node.js 22.17 to 26.x** for `adk/typescript`, **22+** for
    `langchain/typescript`, **20+** for `aisdk`; **Python 3.10+** for Python
    templates (**3.11+** for `adk/python`).
 

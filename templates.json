@@ -8,7 +8,7 @@
           "label": "TypeScript (Gemini)",
           "source": "adk/typescript",
           "next": [
-            "npm install            # Node.js 22.17+ required",
+            "npm install            # Node.js 22.17 to 26.x required",
             "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and GEMINI_API_KEY",
             "npm start              # opens the ADK web UI"
           ]
