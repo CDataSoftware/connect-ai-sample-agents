@@ -57,6 +57,15 @@ npm run start:cli
 - `https://mcp.cloud.cdata.com/mcp/mgmt` — Management MCP (account introspection and
   connection lifecycle, used by the preflight step)
 
+## Updating dependencies
+
+`package-lock.json` pins every package `npm install` resolves, direct and transitive, so a
+fresh install gets the versions this template was tested with. To pick up newer releases
+within the ranges in `package.json`, run `npm update`; to move a dependency to a new major
+version, run `npm install <package>@latest`. Both rewrite `package-lock.json` — commit it.
+Use `npm ci` instead of `npm install` when you want the install to fail rather than change
+the lock.
+
 ## Customizing
 
 - **Model** — change in `agent.ts` (default: `gemini-flash-latest`).

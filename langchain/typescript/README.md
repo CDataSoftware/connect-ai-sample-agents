@@ -51,6 +51,15 @@ confirmation and resume without losing context.
 The model is selected from the first provider key found, in order: Anthropic → OpenAI →
 Gemini.
 
+## Updating dependencies
+
+`package-lock.json` pins every package `npm install` resolves, direct and transitive, so a
+fresh install gets the versions this template was tested with. To pick up newer releases
+within the ranges in `package.json`, run `npm update`; to move a dependency to a new major
+version, run `npm install <package>@latest`. Both rewrite `package-lock.json` — commit it.
+Use `npm ci` instead of `npm install` when you want the install to fail rather than change
+the lock.
+
 ## Customizing
 
 - **Model** — edit `pickModel()` in `agent.ts` to change provider order or model IDs

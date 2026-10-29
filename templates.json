@@ -17,7 +17,7 @@
           "label": "Python (Anthropic or OpenAI via LiteLLM)",
           "source": "adk/python",
           "next": [
-            "/opt/homebrew/bin/python3.13 -m venv .venv && source .venv/bin/activate   # Python 3.11+ required",
+            "/opt/homebrew/bin/python3.13 -m venv .venv && source .venv/bin/activate   # Python 3.11 to 3.14 required",
             "pip install --upgrade pip && pip install -r requirements.txt",
             "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and ANTHROPIC_API_KEY or OPENAI_API_KEY",
             "adk web                # opens the ADK web UI (agent: daily_standup)"
@@ -52,7 +52,7 @@
           "label": "Python",
           "source": "langchain/python",
           "next": [
-            "python3 -m venv .venv && source .venv/bin/activate   # Python 3.10+ required",
+            "python3 -m venv .venv && source .venv/bin/activate   # Python 3.10 to 3.14 required",
             "pip install --upgrade pip && pip install -r requirements.txt",
             "cp .env.example .env  # fill in CDATA_PAT, CDATA_ACCT_EMAIL, and one of ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY",
             "python agent.py"
@@ -70,7 +70,6 @@
     "venv",
     "__pycache__",
     ".adk",
-    "package-lock.json",
     "yarn.lock",
     "pnpm-lock.yaml",
     ".DS_Store"
