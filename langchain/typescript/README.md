@@ -54,11 +54,21 @@ Gemini.
 ## Updating dependencies
 
 `package-lock.json` pins every package `npm install` resolves, direct and transitive, so a
-fresh install gets the versions this template was tested with. To pick up newer releases
-within the ranges in `package.json`, run `npm update`; to move a dependency to a new major
-version, run `npm install <package>@latest`. Both rewrite `package-lock.json` — commit it.
-Use `npm ci` instead of `npm install` when you want the install to fail rather than change
-the lock.
+fresh install gets the versions this template was tested with. To add, remove, or upgrade a
+dependency, edit its range in `package.json` and regenerate the lock from scratch:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install --package-lock-only --before=2026-10-22T00:00:00Z
+npm update body-parser --package-lock-only
+```
+
+`--before` skips releases less than a week old: set it to a date a week ago. The last
+command exempts `body-parser`, lifting it to the 2.4.0 security fix released after that
+cutoff; drop it once the cutoff passes 2026-10-23. Delete `node_modules` first, or npm
+records what's already installed instead of resolving from the registry. Commit the new
+`package-lock.json`. Use `npm ci` instead of `npm install` when you want the install to fail
+rather than change the lock.
 
 ## Customizing
 
