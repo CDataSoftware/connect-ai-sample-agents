@@ -8,6 +8,10 @@ Uses LiteLLM, so it runs on either an **Anthropic** or **OpenAI** API key.
 
 - Python **3.11 to 3.14** (3.12 or 3.13 recommended). Python 3.15 isn't supported yet:
   `litellm` requires Python below 3.15.
+- On macOS, two dependencies build from source where no prebuilt wheel exists: on Intel
+  Macs, `cryptography` needs a [Rust toolchain](https://rustup.rs/) (it no longer ships
+  Intel Mac wheels), and on Python 3.14, `watchdog` needs a C compiler
+  (`xcode-select --install`).
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - Either an `ANTHROPIC_API_KEY` or an `OPENAI_API_KEY`.
 
@@ -59,12 +63,17 @@ pip rejects entries without hashes. To add, remove, or upgrade a dependency, edi
 `requirements.in` and regenerate the lock with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv pip compile requirements.in --universal --python-version 3.11 --generate-hashes   --exclude-newer 2026-10-22T00:00:00Z -o requirements.txt   # use a date a week ago
+uv pip compile requirements.in --universal --python-version 3.11 --generate-hashes \
+  --exclude-newer 2026-10-22T00:00:00Z \
+  --exclude-newer-package google-adk=2026-10-24T00:00:00Z \
+  -o requirements.txt
 ```
 
 `--universal` keeps one lock valid on Windows, macOS, and Linux, `--python-version 3.11`
 resolves for the oldest supported Python, and `--exclude-newer` skips releases less than a
-week old. Then run `pip install -r requirements.txt` again.
+week old: set it to a date a week ago. `--exclude-newer-package` exempts `google-adk`,
+whose pinned 2.13.0 was released after that cutoff; drop it once the cutoff passes
+2026-10-24. Then run `pip install -r requirements.txt` again.
 
 ## Customizing
 

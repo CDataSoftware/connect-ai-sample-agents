@@ -7,6 +7,8 @@ Auto-generates a daily standup summary from your Jira, Slack, and Google Calenda
 
 - Python **3.10 to 3.14** (3.12 or 3.13 recommended). Python 3.15 isn't supported yet:
   `zstandard`, which `langsmith` depends on, has no 3.15 wheels.
+- On Intel Macs, `cryptography` builds from source and needs a
+  [Rust toolchain](https://rustup.rs/): it no longer ships Intel Mac wheels.
 - A CData Connect Cloud account with a Personal Access Token (PAT).
 - One LLM provider key: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, or `GEMINI_API_KEY`.
 
@@ -68,12 +70,14 @@ pip rejects entries without hashes. To add, remove, or upgrade a dependency, edi
 `requirements.in` and regenerate the lock with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv pip compile requirements.in --universal --python-version 3.10 --generate-hashes   --exclude-newer 2026-10-22T00:00:00Z -o requirements.txt   # use a date a week ago
+uv pip compile requirements.in --universal --python-version 3.10 --generate-hashes \
+  --exclude-newer 2026-10-22T00:00:00Z \
+  -o requirements.txt
 ```
 
 `--universal` keeps one lock valid on Windows, macOS, and Linux, `--python-version 3.10`
 resolves for the oldest supported Python, and `--exclude-newer` skips releases less than a
-week old. Then run `pip install -r requirements.txt` again.
+week old: set it to a date a week ago. Then run `pip install -r requirements.txt` again.
 
 ## Customizing
 
