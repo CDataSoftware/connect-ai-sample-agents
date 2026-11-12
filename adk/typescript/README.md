@@ -67,11 +67,14 @@ dependency, edit its range in `package.json` and regenerate the lock from scratc
 rm -rf node_modules package-lock.json
 npm install --package-lock-only --before=2026-10-22T00:00:00Z
 npm update body-parser --package-lock-only
+npm update @azure/identity --package-lock-only
 ```
 
-`--before` skips releases less than a week old: set it to a date a week ago. The last
-command exempts `body-parser`, lifting it to the 1.20.9 and 2.4.0 security fixes released
-after that cutoff; drop it once the cutoff passes 2026-10-23. Delete `node_modules` first, or
+`--before` skips releases less than a week old: set it to a date a week ago. The last two
+commands exempt security fixes released after that cutoff. `body-parser` moves to 1.20.9 and
+2.4.0; drop that line once the cutoff passes 2026-10-23. `@azure/identity` moves to 4.14.1,
+which brings in the patched `@azure/msal-node` 7; drop that line once the cutoff passes
+2026-10-30. Delete `node_modules` first, or
 npm records what's already installed instead of resolving from the registry. Commit the new
 `package-lock.json`. Use `npm ci` instead of `npm install` when you want the install to fail
 rather than change the lock.
